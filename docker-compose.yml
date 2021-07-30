@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    entrypoint: ['/usr/src/app/entrypoint.sh']  # new
     volumes:
       - '.:/usr/src/app'
     ports:
@@ -14,12 +15,12 @@ services:
       - FLASK_APP=src/__init__.py
       - FLASK_ENV=development
       - APP_SETTINGS=src.config.DevelopmentConfig
-      - DATABASE_URL=postgresql://postgres:postgres@api-db:5432/api_dev  # new
-      - DATABASE_TEST_URL=postgresql://postgres:postgres@api-db:5432/api_test  # new
-    depends_on:  # new
+      - DATABASE_URL=postgresql://postgres:postgres@api-db:5432/api_dev
+      - DATABASE_TEST_URL=postgresql://postgres:postgres@api-db:5432/api_test
+    depends_on:
       - api-db
 
-  api-db:  # new
+  api-db:
     build:
       context: ./src/db
       dockerfile: Dockerfile
