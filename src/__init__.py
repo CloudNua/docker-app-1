@@ -1,18 +1,16 @@
 import os
 
-from flask import Flask  # new
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from src.api.users import users_blueprint
+from src.api.ping import ping_blueprint
 
 
-# instantiate the db
-db = SQLAlchemy()
-
-
-# new
 def create_app(script_info=None):
 
-    # instantiate the app
+    # instantiate the App & DB
     app = Flask(__name__)
+    db = SQLAlchemy(app)
 
     # set config
     app_settings = os.getenv('APP_SETTINGS')
@@ -22,8 +20,8 @@ def create_app(script_info=None):
     db.init_app(app)
 
     # register blueprints
-    from src.api.ping import ping_blueprint
     app.register_blueprint(ping_blueprint)
+    app.register_blueprint(users_blueprint)
 
     # shell context for flask cli
     @app.shell_context_processor
