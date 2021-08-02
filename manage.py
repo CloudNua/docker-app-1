@@ -16,6 +16,12 @@ def recreate_db():
     db.create_all()
     db.session.commit()
 
+@cli.command('seed_db')
+def seed_db():
+    db.session.add(User(username='user-101', email="user-101@cloudnua.io"))
+    db.session.add(User(username='user-102', email="user-102@cloudnua.io"))
+    db.session.commit()
+
 
 if __name__ == '__main__':
     cli()
