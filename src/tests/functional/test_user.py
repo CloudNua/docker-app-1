@@ -1,5 +1,4 @@
 import json
-
 from src.api.models import User
 
 def test_add_user_invalid_json(test_app, test_database):
